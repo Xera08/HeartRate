@@ -10,18 +10,21 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -29,15 +32,27 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.heartrate.Onboarding1
 import com.example.heartrate.R
 import com.example.heartrate.ui.theme.RoundBackground
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-@Preview
-@Composable
-fun LoadingScreen() {
-    val scope = rememberCoroutineScope() // Create a coroutine scope
 
+@Composable
+fun LoadingScreen(navController: NavController) {
+    var currentProgress by remember { mutableStateOf(0f) }
+    val scope = rememberCoroutineScope()
+
+    LaunchedEffect(key1 = null) {
+        currentProgress = 0f
+        scope.launch {
+            loadProgress { progress ->
+                currentProgress = progress
+            }
+        }
+    }
 
     Box(modifier = Modifier
         .fillMaxSize()
@@ -50,7 +65,12 @@ fun LoadingScreen() {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
                 modifier = Modifier
-                    .background(color = RoundBackground, shape = RoundedCornerShape(0.dp, 0.dp, 144.dp, 144.dp))
+                    .background(color = RoundBackground, shape = RoundedCornerShape(
+                        topStartPercent = 0,
+                        topEndPercent = 0,
+                        bottomStartPercent = 35,
+                        bottomEndPercent = 35
+                    ))
                     .weight(3f)
             ) {
 
@@ -74,20 +94,40 @@ fun LoadingScreen() {
 
             }
 
-            Row(
+
+            Box(
                 modifier = Modifier
+                    .fillMaxWidth()
+                    //.weight(1f)
                     .padding(48.dp),
-                verticalAlignment = Alignment.Bottom
             ) {
                 LinearProgressIndicator(
+                    progress = {currentProgress},
                     modifier = Modifier
-                        .weight(1f)
-                        .size(12.dp)
+                        .fillMaxWidth()
+                        .height(24.dp)
 
+                )
+                Text(
+                    text = "Here",
+                    modifier = Modifier
+                        .align(Alignment.Center)
                 )
             }
         }
 
 
+    }
+
+    if (currentProgress == 100F) {
+        navController.navigate(Onboarding1.route)
+    }
+}
+
+
+suspend fun loadProgress(updateProgress: (Float) -> Unit) {
+    for (i in 1..100) {
+        updateProgress(i.toFloat() / 100)
+        delay(50)
     }
 }

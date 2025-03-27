@@ -43,6 +43,9 @@ fun HeartRateApp() {
                 composable(route = Loading.route) {
                     Loading.screen(navController)
                 }
+                composable(route = Onboarding1.route) {
+                    Onboarding1.screen(navController)
+                }
             }
         }
     }
