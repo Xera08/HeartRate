@@ -33,12 +33,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.heartrate.Onboarding1
+import com.example.heartrate.Onboarding
 import com.example.heartrate.R
 import com.example.heartrate.ui.theme.RoundBackground
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-
 
 @Composable
 fun LoadingScreen(navController: NavController) {
@@ -46,12 +45,16 @@ fun LoadingScreen(navController: NavController) {
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(key1 = null) {
-        currentProgress = 0f
         scope.launch {
             loadProgress { progress ->
                 currentProgress = progress
             }
         }
+
+
+    }
+    if (currentProgress == 1F) {
+        navController.navigate(Onboarding.route)
     }
 
     Box(modifier = Modifier
@@ -88,17 +91,13 @@ fun LoadingScreen(navController: NavController) {
                         .fillMaxWidth(),
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center
-
-
                 )
-
             }
 
 
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    //.weight(1f)
                     .padding(48.dp),
             ) {
                 LinearProgressIndicator(
@@ -109,7 +108,7 @@ fun LoadingScreen(navController: NavController) {
 
                 )
                 Text(
-                    text = "Here",
+                    text = "${(currentProgress*100).toInt()}%",
                     modifier = Modifier
                         .align(Alignment.Center)
                 )
@@ -119,15 +118,15 @@ fun LoadingScreen(navController: NavController) {
 
     }
 
-    if (currentProgress == 100F) {
-        navController.navigate(Onboarding1.route)
-    }
+
 }
 
 
 suspend fun loadProgress(updateProgress: (Float) -> Unit) {
+    delay(150)
     for (i in 1..100) {
         updateProgress(i.toFloat() / 100)
         delay(50)
     }
+
 }
