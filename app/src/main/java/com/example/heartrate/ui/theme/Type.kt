@@ -3,6 +3,7 @@ package com.example.heartrate.ui.theme
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Typography
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -19,6 +20,13 @@ val Typography = Typography(
         textAlign = TextAlign.Center
     ),
     titleMedium = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Bold,
+        fontSize = 28.sp,
+        letterSpacing = 0.sp,
+        textAlign = TextAlign.Center
+    ),
+    titleSmall = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Bold,
         fontSize = 24.sp,
@@ -40,6 +48,14 @@ val Typography = Typography(
         letterSpacing = 0.5.sp,
         textAlign = TextAlign.Center
 
+    ),
+    labelMedium = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Medium,
+        fontSize = 20.sp,
+        lineHeight = 16.sp,
+        letterSpacing = 0.5.sp,
+        color = Color.White
     ),
     labelSmall = TextStyle(
         fontFamily = FontFamily.Default,

@@ -100,8 +100,7 @@ fun OnboardingScreen(navController: NavController) {
                 ) { page ->
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                    modifier = Modifier
+                    verticalArrangement = Arrangement.Center
                 ) {
                     Image(
                         painter = painterResource(id = onBoardingScreens[page].image),
@@ -111,7 +110,7 @@ fun OnboardingScreen(navController: NavController) {
                     Spacer(modifier = Modifier.height(36.dp))
                     Text(
                         text = onBoardingScreens[page].title,
-                        style = MaterialTheme.typography.titleMedium,
+                        style = MaterialTheme.typography.titleSmall,
                         textAlign = TextAlign.Center
                     )
                     Text(
@@ -119,7 +118,6 @@ fun OnboardingScreen(navController: NavController) {
                         style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier.padding(24.dp),
                         textAlign = TextAlign.Center
-
                     )
 
                 }
@@ -132,7 +130,6 @@ fun OnboardingScreen(navController: NavController) {
                 modifier = Modifier
                     .weight(1f)
                     .padding(36.dp)
-                    ,
             ) {
                 PageIndicator(
                     amountOfPages = onBoardingScreens.size,
@@ -142,6 +139,7 @@ fun OnboardingScreen(navController: NavController) {
                 BottomButton(
                     text = if (pagerState.currentPage == 1) "Продовжити" else "Почати!" ,
                     onClick = {
+
                         scope.launch {
                             pagerState.scrollToPage(pagerState.currentPage+1)
                         }

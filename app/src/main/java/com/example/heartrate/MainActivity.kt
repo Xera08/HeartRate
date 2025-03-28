@@ -37,7 +37,7 @@ fun HeartRateApp() {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             NavHost(
                 navController = navController,
-                startDestination = Loading.route,
+                startDestination = Homepage.route,
                 modifier = Modifier.padding(innerPadding)
             ) {
                 composable(route = Loading.route) {
@@ -45,6 +45,9 @@ fun HeartRateApp() {
                 }
                 composable(route = Onboarding.route) {
                     Onboarding.screen(navController)
+                }
+                composable(route = Homepage.route) {
+                    Homepage.screen(navController)
                 }
             }
         }
