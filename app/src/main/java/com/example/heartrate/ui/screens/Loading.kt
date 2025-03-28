@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -50,76 +51,71 @@ fun LoadingScreen(navController: NavController) {
                 currentProgress = progress
             }
         }
-
-
     }
+
     if (currentProgress == 1F) {
         navController.navigate(Onboarding.route)
     }
 
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .background(Color.White)
+
+    Column(
+        modifier = Modifier.fillMaxSize()
+            .background(Color.White)
+
     ) {
         Column(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-                modifier = Modifier
-                    .background(color = RoundBackground, shape = RoundedCornerShape(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .background(
+                    color = RoundBackground, shape = RoundedCornerShape(
                         topStartPercent = 0,
                         topEndPercent = 0,
                         bottomStartPercent = 35,
                         bottomEndPercent = 35
-                    ))
-                    .weight(3f)
-            ) {
-
-                Image(
-                    painter = painterResource(id = R.drawable.heart),
-                    contentDescription = "Heart image",
-                    Modifier
-                        .size(256.dp)
+                    )
                 )
+                .weight(4f)
+        ) {
 
-                Text(
-                    text = "Heart Rate",
-                    fontSize = 52.sp,
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center
-                )
-            }
+            Image(
+                painter = painterResource(id = R.drawable.heart),
+                contentDescription = "Heart image",
+                Modifier
+                    .size(256.dp)
+            )
 
-
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(48.dp),
-            ) {
-                LinearProgressIndicator(
-                    progress = {currentProgress},
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(24.dp)
-
-                )
-                Text(
-                    text = "${(currentProgress*100).toInt()}%",
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                )
-            }
+            Text(
+                text = "Heart Rate",
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.fillMaxWidth()
+            )
         }
 
 
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(48.dp),
+        ) {
+            LinearProgressIndicator(
+                progress = { currentProgress },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(24.dp)
+
+            )
+            Text(
+                text = "${(currentProgress * 100).toInt()}%",
+                modifier = Modifier
+                    .align(Alignment.Center)
+            )
+        }
     }
-
-
 }
+
+
+
 
 
 suspend fun loadProgress(updateProgress: (Float) -> Unit) {

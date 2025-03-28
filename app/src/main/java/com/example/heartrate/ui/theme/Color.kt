@@ -7,6 +7,11 @@ val PurpleGrey80 = Color(0xFFCCC2DC)
 val Pink80 = Color(0xFFEFB8C8)
 
 val RoundBackground = Color(178, 222, 251)
+val ButtonBackground = Color(255, 107, 107)
+val HighlightedDot = Color(255, 107, 107)
+val RegularDot = Color(230, 230, 230)
+
+
 
 val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)

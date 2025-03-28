@@ -77,5 +77,5 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
 
     implementation(platform("androidx.compose:compose-bom:2025.02.00"))
-
+    implementation("com.google.accompanist:accompanist-pager:0.12.0")
 }
